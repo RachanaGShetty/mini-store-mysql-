@@ -1,0 +1,5 @@
+SELECT * FROM orders ORDER BY order_id DESC;
+
+SELECT * FROM order_items WHERE order_id = @new_order_id;
+
+SELECT stock FROM products WHERE product_id = 5;
