@@ -1,0 +1,13 @@
+USE mini_store;
+SHOW TABLES;
+USE mini_store;
+SHOW TABLES;                     -- are tables present?
+SHOW CREATE TABLE products;      -- see the exact column names & constraints
+DESCRIBE products;               -- column list/types
+SELECT COUNT(*) FROM products;   -- any rows?
+SELECT * FROM products LIMIT 5;  -- see sample rows
+
+
+SELECT product_id, name, category, price, stock
+FROM products
+ORDER BY price DESC;
