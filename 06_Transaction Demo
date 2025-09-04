@@ -1,0 +1,29 @@
+
+-- QUERY 5: Transaction Demo
+
+USE mini_store;
+
+-- Start a new transaction
+START TRANSACTION;
+
+-- Step 1: Insert a new order for customer_id = 1 (Asha Rao)
+INSERT INTO orders (customer_id, order_date, status)
+VALUES (1, NOW(), 'PENDING');
+
+-- Capture the last inserted order_id
+SET @new_order_id = LAST_INSERT_ID();
+
+-- Step 2: Add order items (say she buys 2 mugs at ₹299 each)
+INSERT INTO order_items (order_id, product_id, quantity, unit_price)
+VALUES (@new_order_id, 5, 2, 299.00);
+
+-- Step 3: Update stock for product_id = 5 (reduce by 2)
+UPDATE products
+SET stock = stock - 2
+WHERE product_id = 5;
+
+-- If everything looks good, commit the transaction
+COMMIT;
+
+-- If something went wrong (e.g., insufficient stock), you could do:
+-- ROLLBACK;
