@@ -1,0 +1,15 @@
+SELECT customer_id, first_name, last_name, email, city
+FROM customers
+WHERE city LIKE 'Bangalore';
+
+SELECT
+  o.order_id,
+  CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+  o.order_date,
+  o.status,
+  SUM(oi.quantity * oi.unit_price) AS order_total
+FROM orders o
+JOIN customers c ON c.customer_id = o.customer_id
+LEFT JOIN order_items oi ON oi.order_id = o.order_id
+GROUP BY o.order_id, customer_name, o.order_date, o.status
+ORDER BY o.order_date DESC;
